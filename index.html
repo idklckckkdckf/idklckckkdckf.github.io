@@ -98,9 +98,15 @@
   .mkt{background:var(--panel);color:var(--ink);margin:36px 0 0;padding:32px 0 36px;
     border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .mkt .sec-head{border-bottom-color:var(--ink)}
-  .mkt.fold .sec-head{cursor:pointer;user-select:none;-webkit-user-select:none}
-  .mkt.fold .sec-head::after{content:"+";margin-left:auto;font-family:var(--mono);
-    color:var(--ink);font-size:16px;font-weight:600;width:22px;text-align:center}
+  .mkt.fold .sec-head{cursor:pointer;user-select:none;-webkit-user-select:none;
+    background:#f5f4f2;border:1px solid var(--line);border-bottom:2px solid var(--ink);
+    padding:13px 16px;transition:background .2s ease}
+  .mkt.fold .sec-head:hover{background:#ebe9e5}
+  .mkt.fold .sec-head::after{content:"+";margin-left:auto;flex:none;font-family:var(--mono);
+    color:var(--ink);font-size:14px;font-weight:600;
+    width:26px;height:26px;border:1px solid var(--ink);border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;transition:all .2s ease}
+  .mkt.fold .sec-head:hover::after{background:var(--ink);color:#fff}
   .mkt.fold:not(.closed) .sec-head::after{content:"−"}
   .mkt.fold .fold-body{overflow:hidden}
   .mkt.fold.closed tbody tr:nth-child(n+3){display:none}
