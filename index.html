@@ -506,10 +506,10 @@
         '</td><td class="'+cls(c.chg)+'">'+sign(c.chg)+'</td></tr>';
     }).join('');
   }
-  function stamp(id){
+  function stamp(id, dataTime){
     try{
-      document.getElementById(id).textContent =
-        '更新于 ' + new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+      var now = new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+      document.getElementById(id).textContent = '数据更新于 ' + dataTime + ' · 页面刷新于 ' + now;
     }catch(e){}
   }
   function refreshCrypto(){
@@ -519,7 +519,7 @@
         var q = d.quotes||[];
         if(!q.length) throw 0;
         renderTicker(q); renderTable(q);
-        try{ document.getElementById('mkt-time').textContent = '数据更新于 ' + d.updated_et; }catch(e){}
+        stamp('mkt-time', d.updated_et);
         document.getElementById('mkt-body').dataset.live='1';
       })
       .catch(function(){
@@ -558,7 +558,7 @@
         var q = d.quotes||[];
         if(!q.length) throw 0;
         renderUS(q);
-        try{ document.getElementById('us-time').textContent = '数据更新于 ' + d.updated_et; }catch(e){}
+        stamp('us-time', d.updated_et);
         document.getElementById('us-body').dataset.live='1';
       })
       .catch(function(){
