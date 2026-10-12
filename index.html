@@ -492,15 +492,26 @@
   function sign(c){ return (c>=0?'+':'')+c.toFixed(1)+'%'; }
 
   // 行情栏：requestAnimationFrame 逐帧驱动（CSS keyframes 在 iOS 切后台后经常罢工）
-  var tick = {x:0, half:0, last:0, paused:false};
+  var tick = {x:0, half:0, last:0, paused:false, list:null};
   function renderTicker(list){
+    tick.list = list;
     var half = list.map(function(c){
       return '<span class="tk">'+c.symbol+' $'+fmt(c.price)+' '+
         '<span class="'+cls(c.chg)+'">'+sign(c.chg)+'</span></span>';
     }).join('<span class="tk-sep">●</span>') + '<span class="tk-sep">●</span>';
     var el = document.getElementById('ticker');
+    var view = document.querySelector('.ticker-view');
     el.innerHTML = '<span class="tick-half">'+half+'</span><span class="tick-half">'+half+'</span>';
-    tick.half = (el.children[0] && el.children[0].offsetWidth) || 0;
+    var hw = (el.children[0] && el.children[0].offsetWidth) || 0;
+    var vw = (view && view.clientWidth) || 1;
+    // 内容不够宽时多复制几组，保证任何视口下都能无缝滚动
+    var n = hw > 0 ? Math.max(2, Math.ceil(vw/hw) + 1) : 2;
+    if (n > 2){
+      var all = '';
+      for (var i=0;i<n;i++) all += '<span class="tick-half">'+half+'</span>';
+      el.innerHTML = all;
+    }
+    tick.half = hw;
     if (tick.half > 0) tick.x = (((tick.x % tick.half) + tick.half) % tick.half) || 0;
     if (tick.x > 0) tick.x -= tick.half;
   }
@@ -508,15 +519,11 @@
     if (!tick.last) tick.last = t;
     var dt = (t - tick.last)/1000; tick.last = t;
     if (dt > 0.25) dt = 0.25; // 切后台回来时钳住时间差，避免跳动
-    var view = document.querySelector('.ticker-view');
     var el = document.getElementById('ticker');
-    var canScroll = el && view && tick.half > view.clientWidth + 1;
-    if (canScroll && !tick.paused){
+    if (el && tick.half > 0 && !tick.paused){
       tick.x -= 60*dt; // 60 px/s 匀速
       if (tick.x <= -tick.half) tick.x += tick.half; // 无缝回绕
       el.style.transform = 'translateX('+tick.x+'px)';
-    } else if (!canScroll && tick.x !== 0){
-      tick.x = 0; if (el) el.style.transform = 'translateX(0px)';
     }
     requestAnimationFrame(tickFrame);
   }
@@ -596,6 +603,7 @@
     _tv.addEventListener('mouseenter', function(){ tick.paused = true; });
     _tv.addEventListener('mouseleave', function(){ tick.paused = false; });
   }
+  window.addEventListener('resize', function(){ if (tick.list) renderTicker(tick.list); });
   if (document.fonts && document.fonts.ready){
     document.fonts.ready.then(function(){
       var el = document.getElementById('ticker');
