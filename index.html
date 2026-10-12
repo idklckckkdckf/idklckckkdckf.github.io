@@ -142,8 +142,10 @@
     background:linear-gradient(90deg,transparent,var(--acc),transparent)}
   .w-secs{font-family:var(--mono);font-size:12px;letter-spacing:.26em;color:var(--muted);
     margin-bottom:22px;line-height:2.2}
-  .w-stats{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--acc);
-    margin-bottom:42px;opacity:.9}
+  .w-stats{margin-bottom:42px;line-height:2.1}
+  .w-stats-zh{font-size:13px;letter-spacing:.34em;text-indent:.34em;color:var(--ink)}
+  .w-stats-en{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-indent:.3em;
+    color:var(--acc);opacity:.85}
   #enter-btn{background:transparent;color:var(--ink);border:1px solid rgba(34,211,238,.5);
     cursor:pointer;font-family:var(--mono);font-size:13px;letter-spacing:.42em;font-weight:600;
     padding:17px 36px 17px 52px;transition:all .25s}
@@ -183,7 +185,10 @@
       <div class="w-title">头<span class="acc">版</span></div>
       <div class="w-rule"></div>
       <div class="w-secs">为你筛选值得读的新闻<br>每天一页读完</div>
-      <div class="w-stats">8 SECTIONS · 24 STORIES · 实时数据</div>
+      <div class="w-stats">
+        <div class="w-stats-zh">8 个版面 · 24 篇报道 · 每日更新 · 实时数据</div>
+        <div class="w-stats-en">8 SECTIONS · 24 STORIES · DAILY UPDATE · LIVE DATA</div>
+      </div>
       <button id="enter-btn">进入阅读 →</button>
     </div>
   </div>
