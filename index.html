@@ -52,13 +52,12 @@
   .dateline{display:flex;justify-content:space-between;align-items:center;gap:12px;
     border-top:1px solid var(--line);border-bottom:1px solid var(--line);
     margin-top:20px;padding:8px 2px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);flex-wrap:wrap}
-  nav.secs{display:flex;justify-content:center;flex-wrap:wrap;margin-top:16px;
-    border-top:2px solid var(--ink);border-bottom:1px solid var(--line)}
-  nav.secs a{font-size:13px;letter-spacing:.28em;text-indent:.28em;font-weight:600;
-    padding:12px 18px;position:relative;transition:background .2s}
-  nav.secs a + a{border-left:1px solid var(--line)}
-  nav.secs a:hover{background:#edecea}
-  @media(max-width:560px){nav.secs a{padding:10px 12px;font-size:12px}}
+  nav.secs{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:20px;padding:0 4px}
+  nav.secs a{font-size:12.5px;letter-spacing:.22em;text-indent:.22em;font-weight:600;white-space:nowrap;
+    padding:9px 20px;border:1px solid #d8d5cf;border-radius:999px;background:#fff;color:var(--ink);
+    transition:background .2s,color .2s,border-color .2s}
+  nav.secs a:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  @media(max-width:560px){nav.secs{gap:8px}nav.secs a{padding:8px 15px;font-size:12px}}
 
   /* ===== hero ===== */
   .hero{padding:36px 0 8px;display:grid;grid-template-columns:1.25fr .75fr;gap:34px}
