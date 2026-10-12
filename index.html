@@ -125,9 +125,9 @@
     margin-bottom:28px;text-indent:.5em}
   .w-kicker .prompt{color:var(--acc);font-weight:700}
   .cursor{display:inline-block;animation:blink 1.1s steps(1) infinite;color:var(--acc);margin-left:3px}
-  .w-title{font-size:clamp(110px,22vw,230px);font-weight:800;letter-spacing:.06em;
-    line-height:1;color:var(--ink);text-indent:.06em}
-  .w-title .acc{color:var(--acc)}
+  .w-title{font-size:clamp(64px,12vw,128px);font-weight:800;letter-spacing:.14em;
+    line-height:1;color:var(--ink);text-indent:.14em}
+  .w-title .acc{color:transparent;-webkit-text-stroke:1.5px var(--acc)}
   .w-rule{width:min(480px,76vw);height:1px;margin:36px auto;
     background:linear-gradient(90deg,transparent,var(--acc),transparent)}
   .w-secs{font-family:var(--mono);font-size:12px;letter-spacing:.26em;color:var(--muted);
@@ -142,7 +142,7 @@
     padding:16px 28px;border-top:1px solid var(--line);
     font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--muted)}
   @media(max-height:720px){
-    .w-title{font-size:clamp(72px,17vh,130px)}
+    .w-title{font-size:clamp(46px,9vh,72px)}
     .w-rule{margin:22px auto}
     .w-kicker{margin-bottom:18px}
     .w-secs{margin-bottom:14px}
@@ -165,8 +165,8 @@
       <div class="w-kicker"><span class="prompt">&gt;</span> THE FRONT PAGE<span class="cursor">_</span></div>
       <div class="w-title">头<span class="acc">版</span></div>
       <div class="w-rule"></div>
-      <div class="w-secs">为你筛选值得读的新闻，每天一页读完</div>
-      <div class="w-stats">24 STORIES · 8 SECTIONS · 实时数据</div>
+      <div class="w-secs">为你筛选值得读的新闻<br>每天一页读完</div>
+      <div class="w-stats">8 SECTIONS · 24 STORIES · 实时数据</div>
       <button id="enter-btn">进入阅读 →</button>
     </div>
   </div>
