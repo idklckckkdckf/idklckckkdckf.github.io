@@ -15,7 +15,7 @@
   }
   ::selection{background:#191919;color:#fff}
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;scrollbar-gutter:stable}
   body{
     background:var(--paper); color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
@@ -100,7 +100,7 @@
   .mkt .sec-head{border-bottom-color:var(--ink)}
   .mkt.fold .sec-head{cursor:pointer;user-select:none;-webkit-user-select:none}
   .mkt.fold .sec-head::after{content:"+";margin-left:auto;font-family:var(--mono);
-    color:var(--ink);font-size:16px;font-weight:600}
+    color:var(--ink);font-size:16px;font-weight:600;width:22px;text-align:center}
   .mkt.fold:not(.closed) .sec-head::after{content:"−"}
   .mkt.fold .fold-body{overflow:hidden}
   .mkt.fold.closed tbody tr:nth-child(n+3){display:none}
@@ -113,7 +113,9 @@
     mask-image:linear-gradient(180deg,#000 72%,transparent 99%)}
   .mkt.fold.closed .src{display:none}
   .mkt .sec-head h2{color:var(--ink)}
-  .mkt table{width:100%;border-collapse:collapse;font-size:14px}
+  .mkt table{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed}
+  #market th:nth-child(1){width:36%}#market th:nth-child(2){width:36%}#market th:nth-child(3){width:28%}
+  #usmarket th:nth-child(1){width:20%}#usmarket th:nth-child(2){width:30%}#usmarket th:nth-child(3){width:30%}#usmarket th:nth-child(4){width:20%}
   .mkt th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--muted);font-weight:600;
     padding:10px 8px;border-bottom:1px solid var(--ink)}
   .mkt td{padding:12px 8px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:13.5px}
