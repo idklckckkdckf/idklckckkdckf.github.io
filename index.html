@@ -97,7 +97,12 @@
   .mkt.fold .sec-head::after{content:"+";margin-left:auto;font-family:var(--mono);
     color:var(--acc);font-size:16px;font-weight:600}
   .mkt.fold:not(.closed) .sec-head::after{content:"\2212"}
-  .mkt.fold.closed .wrap>:not(.sec-head){display:none}
+  .mkt.fold.closed tbody tr:nth-child(n+3){display:none}
+  .mkt.fold.closed table{
+    -webkit-mask-image:linear-gradient(180deg,#000 50%,transparent 98%);
+    mask-image:linear-gradient(180deg,#000 50%,transparent 98%);
+    cursor:pointer}
+  .mkt.fold.closed .wrap>.src{display:none}
   .mkt .sec-head h2{color:var(--ink)}
   .mkt table{width:100%;border-collapse:collapse;font-size:14px}
   .mkt th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--muted);font-weight:600;
@@ -615,11 +620,10 @@
       if (el && el.children[0]) tick.half = el.children[0].offsetWidth || tick.half;
     });
   }
-  Array.prototype.forEach.call(document.querySelectorAll('.mkt.fold .sec-head'), function(hd){
-    hd.addEventListener('click', function(){
-      var m = hd.parentNode.parentNode;
-      if (m && m.classList) m.classList.toggle('closed');
-    });
+  Array.prototype.forEach.call(document.querySelectorAll('.mkt.fold'), function(m){
+    var hd = m.querySelector('.sec-head'), tb = m.querySelector('table');
+    if (hd) hd.addEventListener('click', function(){ m.classList.toggle('closed'); });
+    if (tb) tb.addEventListener('click', function(){ m.classList.remove('closed'); });
   });
   function refreshAll(){ refreshCrypto(); refreshUS(); }
   refreshAll();
