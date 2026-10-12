@@ -148,10 +148,10 @@
   .w-box{display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;animation:rise .8s ease both;max-width:840px}
   .w-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.5em;text-indent:.5em;color:var(--muted);
-    margin-bottom:30px}
-  .w-title{font-size:clamp(64px,12vw,128px);font-weight:800;letter-spacing:.14em;
-    line-height:1;color:var(--ink);text-indent:.14em}
-  .w-title .acc{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+    margin-bottom:26px}
+  .w-nameplate{border:4px double var(--ink);padding:30px 56px 36px}
+  .w-title{font-size:clamp(64px,12vw,128px);font-weight:800;letter-spacing:.18em;
+    line-height:1.1;color:var(--ink);text-indent:.18em}
   .w-rule{width:min(420px,72vw);height:1px;margin:34px auto;
     background:linear-gradient(90deg,transparent,var(--ink),transparent)}
   .w-secs{font-size:13px;letter-spacing:.32em;text-indent:.32em;color:var(--sub);
@@ -169,6 +169,7 @@
     font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--muted)}
   @media(max-height:720px){
     .w-title{font-size:clamp(46px,9vh,72px)}
+    .w-nameplate{padding:20px 34px 24px}
     .w-rule{margin:22px auto}
     .w-kicker{margin-bottom:18px}
     .w-secs{margin-bottom:14px}
@@ -195,8 +196,10 @@
   <div class="w-folio"><span id="w-date">2026年10月12日</span><span><span class="live-dot"></span>LIVE</span></div>
   <div class="w-stage">
     <div class="w-box">
-      <div class="w-kicker">THE FRONT PAGE</div>
-      <div class="w-title">头<span class="acc">版</span></div>
+      <div class="w-nameplate">
+        <div class="w-kicker">THE FRONT PAGE</div>
+        <div class="w-title">头版</div>
+      </div>
       <div class="w-rule"></div>
       <div class="w-secs">为你筛选值得读的新闻<br>每天一页读完</div>
       <div class="w-stats">
