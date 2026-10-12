@@ -427,7 +427,7 @@
       <thead><tr><th>资产</th><th>价格 (USD)</th><th>24h</th></tr></thead>
       <tbody id="mkt-body"><tr><td colspan="3">正在拉取实时行情…</td></tr></tbody>
     </table>
-    <div class="src">实时数据：CoinGecko 公开 API · <span id="mkt-time"></span> · 仅供参考，不构成投资建议</div>
+    <div class="src">数据来源：CoinGecko 公开 API（GitHub Actions 每 20 分钟更新） · <span id="mkt-time"></span> · 仅供参考，不构成投资建议</div>
   </div>
 </div>
 
@@ -506,10 +506,6 @@
         '</td><td class="'+cls(c.chg)+'">'+sign(c.chg)+'</td></tr>';
     }).join('');
   }
-  var norm = function(d){ return d.map(function(c){
-    return {symbol:(c.symbol||'').toUpperCase(), price:c.current_price, chg:c.price_change_percentage_24h||0};
-  });};
-
   function stamp(id){
     try{
       document.getElementById(id).textContent =
@@ -517,10 +513,13 @@
     }catch(e){}
   }
   function refreshCrypto(){
-    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,ripple,binancecoin,zcash,dogecoin,tron&price_change_percentage=24h')
+    fetch('crypto-quotes.json', {cache:'no-store'})
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
       .then(function(d){
-        var l=norm(d); renderTicker(l); renderTable(l); stamp('mkt-time');
+        var q = d.quotes||[];
+        if(!q.length) throw 0;
+        renderTicker(q); renderTable(q);
+        try{ document.getElementById('mkt-time').textContent = '数据更新于 ' + d.updated_et; }catch(e){}
         document.getElementById('mkt-body').dataset.live='1';
       })
       .catch(function(){
