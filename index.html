@@ -102,12 +102,16 @@
   .mkt.fold .sec-head::after{content:"+";margin-left:auto;font-family:var(--mono);
     color:var(--ink);font-size:16px;font-weight:600}
   .mkt.fold:not(.closed) .sec-head::after{content:"−"}
+  .mkt.fold .fold-body{overflow:hidden}
   .mkt.fold.closed tbody tr:nth-child(n+3){display:none}
-  .mkt.fold.closed table{
-    -webkit-mask-image:linear-gradient(180deg,#000 50%,transparent 98%);
-    mask-image:linear-gradient(180deg,#000 50%,transparent 98%);
+  .mkt.fold.closed .fold-body{
+    -webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 97%);
+    mask-image:linear-gradient(180deg,#000 55%,transparent 97%);
     cursor:pointer}
-  .mkt.fold.closed .wrap>.src{display:none}
+  .mkt.fold.animating .fold-body{
+    -webkit-mask-image:linear-gradient(180deg,#000 72%,transparent 99%);
+    mask-image:linear-gradient(180deg,#000 72%,transparent 99%)}
+  .mkt.fold.closed .src{display:none}
   .mkt .sec-head h2{color:var(--ink)}
   .mkt table{width:100%;border-collapse:collapse;font-size:14px}
   .mkt th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--muted);font-weight:600;
@@ -447,11 +451,13 @@
 <div class="mkt fold closed" id="market">
   <div class="wrap">
     <div class="sec-head"><span class="no">MKT</span><h2>加密市场快照</h2><span class="en">CRYPTO MARKET · LIVE</span></div>
+    <div class="fold-body">
     <table>
       <thead><tr><th>资产</th><th>价格 (USD)</th><th>24h</th></tr></thead>
       <tbody id="mkt-body"><tr><td colspan="3">正在拉取实时行情…</td></tr></tbody>
     </table>
     <div class="src">数据来源：CoinGecko 公开数据 · <span id="mkt-time"></span></div>
+    </div>
   </div>
 </div>
 
@@ -459,11 +465,13 @@
 <div class="mkt fold closed" id="usmarket">
   <div class="wrap">
     <div class="sec-head"><span class="no">US</span><h2>美股市场快照</h2><span class="en">US STOCK MARKET · LIVE</span></div>
+    <div class="fold-body">
     <table>
       <thead><tr><th>代码</th><th>公司</th><th>价格 (USD)</th><th>日涨跌</th></tr></thead>
       <tbody id="us-body"><tr><td colspan="4">正在拉取实时行情…</td></tr></tbody>
     </table>
     <div class="src">数据来源：Nasdaq 公开数据 · <span id="us-time"></span></div>
+    </div>
   </div>
 </div>
 
@@ -636,10 +644,45 @@
       if (el && el.children[0]) tick.half = el.children[0].offsetWidth || tick.half;
     });
   }
+  function peekH(m){
+    var t = m.querySelector('table'), h = 0;
+    if (!t) return 0;
+    var thead = t.querySelector('thead');
+    if (thead) h += thead.offsetHeight;
+    var rows = t.querySelectorAll('tbody tr');
+    for (var i=0;i<Math.min(2,rows.length);i++) h += rows[i].offsetHeight;
+    return h;
+  }
+  function foldToggle(m, expand){
+    if (m.classList.contains('animating')) return;
+    var body = m.querySelector('.fold-body');
+    if (!body) return;
+    var wantOpen = (typeof expand === 'boolean') ? expand : m.classList.contains('closed');
+    m.classList.add('animating');
+    body.style.overflow = 'hidden';
+    if (wantOpen){
+      m.classList.remove('closed');
+      var full = body.scrollHeight, peek = peekH(m);
+      body.style.maxHeight = peek + 'px';
+      void body.offsetHeight;
+      body.style.transition = 'max-height .5s ease';
+      body.style.maxHeight = full + 'px';
+      setTimeout(function(){ m.classList.remove('animating'); body.style.cssText = ''; }, 520);
+    } else {
+      var full2 = body.scrollHeight, peek2 = peekH(m);
+      body.style.maxHeight = full2 + 'px';
+      void body.offsetHeight;
+      body.style.transition = 'max-height .5s ease';
+      body.style.maxHeight = peek2 + 'px';
+      setTimeout(function(){
+        m.classList.add('closed'); m.classList.remove('animating'); body.style.cssText = '';
+      }, 520);
+    }
+  }
   Array.prototype.forEach.call(document.querySelectorAll('.mkt.fold'), function(m){
-    var hd = m.querySelector('.sec-head'), tb = m.querySelector('table');
-    if (hd) hd.addEventListener('click', function(){ m.classList.toggle('closed'); });
-    if (tb) tb.addEventListener('click', function(){ m.classList.remove('closed'); });
+    var hd = m.querySelector('.sec-head'), bd = m.querySelector('.fold-body');
+    if (hd) hd.addEventListener('click', function(){ foldToggle(m); });
+    if (bd) bd.addEventListener('click', function(){ if (m.classList.contains('closed')) foldToggle(m, true); });
   });
   var _tt = document.getElementById('to-top');
   function _ttVis(){
