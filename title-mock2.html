@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>欢迎页标题小样 2</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--ink:#191919;--muted:#8a8781;--line:#e2dfd8;--bg:#f6f6f4}
+  body{background:var(--bg);color:var(--ink);font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+  .pg{min-height:100vh;display:flex;flex-direction:column;border-bottom:2px solid #ccc;position:relative}
+  .opt{position:absolute;top:18px;left:22px;font-family:ui-monospace,monospace;font-size:13px;letter-spacing:.3em;color:var(--muted);z-index:5}
+  .w-folio{display:flex;justify-content:space-between;padding:16px 28px;border-bottom:1px solid var(--line);
+    font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.28em;color:var(--muted)}
+  .w-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:30px 20px;overflow:hidden}
+  .w-box{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:840px}
+  .w-kicker{font-family:ui-monospace,monospace;font-size:12px;letter-spacing:.5em;text-indent:.5em;color:var(--muted);margin-bottom:28px}
+  .w-title{font-weight:900;line-height:1.1;color:var(--ink)}
+  .w-rule{width:min(420px,72vw);height:1px;margin:32px auto 0;background:linear-gradient(90deg,transparent,var(--ink),transparent)}
+  .w-secs{font-size:13px;letter-spacing:.32em;text-indent:.32em;color:#55524c;margin:30px 0 22px;line-height:2.2}
+  .w-stats{margin-bottom:38px;line-height:2.1}
+  .w-stats-zh{font-size:13px;letter-spacing:.34em;text-indent:.34em}
+  .w-stats-en{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.3em;text-indent:.3em;color:var(--muted)}
+  #enter-btn{background:transparent;color:var(--ink);border:1px solid var(--ink);cursor:pointer;
+    font-family:ui-monospace,monospace;font-size:13px;letter-spacing:.42em;font-weight:600;padding:17px 36px 17px 52px}
+  .w-bottom{display:flex;justify-content:center;padding:16px 28px;border-top:1px solid var(--line);
+    font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.28em;color:var(--muted)}
+  /* D: 黑带反白 */
+  .t-band{background:#141414;color:#f6f6f4;width:100vw;padding:36px 20px;margin:0}
+  .t-band .w-title{color:#f6f6f4;font-size:clamp(72px,15vw,148px);letter-spacing:.22em;text-indent:.22em}
+  /* E: 竖排 */
+  .t-vert{writing-mode:vertical-rl;font-size:clamp(64px,12vh,104px);letter-spacing:.28em}
+  /* F: 巨字 */
+  .t-giant{font-size:clamp(100px,22vw,210px);letter-spacing:.08em;text-indent:.08em}
+  /* G: 细框 */
+  .t-thin{border:1px solid var(--ink);padding:34px 64px 40px}
+  .t-thin .w-title{font-size:clamp(64px,12vw,124px);letter-spacing:.2em;text-indent:.2em}
+</style></head>
+<body>
+
+<div class="pg" id="d"><div class="opt">D · 黑带</div>
+  <div class="w-folio"><span>2026年10月13日</span><span>LIVE</span></div>
+  <div class="w-stage"><div class="w-box">
+    <div class="w-kicker">THE FRONT PAGE</div>
+    <div class="t-band"><div class="w-title">头版</div></div>
+    <div class="w-rule"></div>
+    <div class="w-secs">为你筛选值得读的新闻<br>每天一页读完</div>
+    <div class="w-stats"><div class="w-stats-zh">8 个版面 · 24 篇报道 · 实时数据 · 每日更新</div>
+    <div class="w-stats-en">8 SECTIONS · 24 STORIES · LIVE DATA · DAILY UPDATE</div></div>
+    <button id="enter-btn">进入阅读 →</button>
+  </div></div>
+  <div class="w-bottom"><span>EST. 2026</span></div>
+</div>
+
+<div class="pg" id="e"><div class="opt">E · 竖排</div>
+  <div class="w-folio"><span>2026年10月13日</span><span>LIVE</span></div>
+  <div class="w-stage"><div class="w-box">
+    <div class="w-kicker">THE FRONT PAGE</div>
+    <div class="w-title t-vert">头版</div>
+    <div class="w-rule"></div>
+    <div class="w-secs">为你筛选值得读的新闻<br>每天一页读完</div>
+    <div class="w-stats"><div class="w-stats-zh">8 个版面 · 24 篇报道 · 实时数据 · 每日更新</div>
+    <div class="w-stats-en">8 SECTIONS · 24 STORIES · LIVE DATA · DAILY UPDATE</div></div>
+    <button id="enter-btn">进入阅读 →</button>
+  </div></div>
+  <div class="w-bottom"><span>EST. 2026</span></div>
+</div>
+
+<div class="pg" id="f"><div class="opt">F · 巨字</div>
+  <div class="w-folio"><span>2026年10月13日</span><span>LIVE</span></div>
+  <div class="w-stage"><div class="w-box">
+    <div class="w-kicker">THE FRONT PAGE</div>
+    <div class="w-title t-giant">头版</div>
+    <div class="w-rule"></div>
+    <div class="w-secs">为你筛选值得读的新闻<br>每天一页读完</div>
+    <div class="w-stats"><div class="w-stats-zh">8 个版面 · 24 篇报道 · 实时数据 · 每日更新</div>
+    <div class="w-stats-en">8 SECTIONS · 24 STORIES · LIVE DATA · DAILY UPDATE</div></div>
+    <button id="enter-btn">进入阅读 →</button>
+  </div></div>
+  <div class="w-bottom"><span>EST. 2026</span></div>
+</div>
+
+<div class="pg" id="g"><div class="opt">G · 细框</div>
+  <div class="w-folio"><span>2026年10月13日</span><span>LIVE</span></div>
+  <div class="w-stage"><div class="w-box">
+    <div class="w-kicker">THE FRONT PAGE</div>
+    <div class="t-thin"><div class="w-title">头版</div></div>
+    <div class="w-rule"></div>
+    <div class="w-secs">为你筛选值得读的新闻<br>每天一页读完</div>
+    <div class="w-stats"><div class="w-stats-zh">8 个版面 · 24 篇报道 · 实时数据 · 每日更新</div>
+    <div class="w-stats-en">8 SECTIONS · 24 STORIES · LIVE DATA · DAILY UPDATE</div></div>
+    <button id="enter-btn">进入阅读 →</button>
+  </div></div>
+  <div class="w-bottom"><span>EST. 2026</span></div>
+</div>
+
+</body></html>
