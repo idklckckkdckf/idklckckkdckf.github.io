@@ -52,17 +52,13 @@
   .dateline{display:flex;justify-content:space-between;align-items:center;gap:12px;
     border-top:1px solid var(--line);border-bottom:1px solid var(--line);
     margin-top:20px;padding:8px 2px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--muted);flex-wrap:wrap}
-  nav.secs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:22px;
-    background:var(--line);border:1px solid var(--ink)}
-  nav.secs a{display:flex;align-items:center;justify-content:center;gap:9px;
-    background:var(--paper);padding:14px 8px;white-space:nowrap;
-    font-size:13px;font-weight:600;letter-spacing:.18em;color:var(--ink);
-    transition:background .2s,color .2s}
-  nav.secs a i{font-family:var(--mono);font-style:normal;font-weight:400;
-    font-size:10px;letter-spacing:.06em;color:var(--muted)}
-  nav.secs a:hover{background:var(--ink);color:#fff}
-  nav.secs a:hover i{color:#bdbdba}
-  @media(max-width:560px){nav.secs{grid-template-columns:repeat(2,1fr)}}
+  nav.secs{display:flex;justify-content:center;flex-wrap:wrap;row-gap:10px;margin-top:18px}
+  nav.secs a{font-size:13.5px;font-weight:600;letter-spacing:.3em;white-space:nowrap;
+    padding:6px 16px;text-decoration:underline;text-decoration-thickness:1px;
+    text-underline-offset:6px;text-decoration-color:#c4c1ba;
+    transition:text-decoration-color .2s}
+  nav.secs a + a{border-left:1px solid var(--line)}
+  nav.secs a:hover{text-decoration-color:var(--ink)}
 
   /* ===== hero ===== */
   .hero{padding:36px 0 8px;display:grid;grid-template-columns:1.25fr .75fr;gap:34px}
@@ -224,7 +220,8 @@
       <span><span class="live-dot"></span>行情实时更新</span>
     </div>
     <nav class="secs">
-      <a href="#world"><i>01</i>国际</a><a href="#econ"><i>02</i>经济</a><a href="#poli"><i>03</i>政治</a><a href="#tech"><i>04</i>科技</a><a href="#ai"><i>05</i>AI产业</a><a href="#chips"><i>06</i>芯片</a><a href="#stocks"><i>07</i>美股</a><a href="#crypto"><i>08</i>Web3</a>
+      <a href="#world">国际</a><a href="#econ">经济</a><a href="#poli">政治</a>
+      <a href="#tech">科技</a><a href="#ai">AI产业</a><a href="#chips">芯片</a><a href="#stocks">美股</a><a href="#crypto">Web3</a>
     </nav>
   </header>
 
