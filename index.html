@@ -26,13 +26,22 @@
   .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
 
   /* ===== ticker ===== */
-  .ticker{background:var(--black);color:var(--ink);overflow:hidden;white-space:nowrap;
-    font-family:var(--mono);font-size:12px;letter-spacing:.04em;padding:10px 0;position:sticky;top:0;z-index:50;
+  .ticker{background:var(--black);color:var(--ink);position:sticky;top:0;z-index:50;
     border-bottom:1px solid var(--line)}
-  .ticker-inner{display:inline-block;padding-left:100%;animation:tick 42s linear infinite}
+  .tk-label{position:absolute;left:0;top:0;bottom:0;display:flex;align-items:center;gap:8px;
+    padding:0 16px;background:var(--black);z-index:2;white-space:nowrap;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.3em;color:var(--acc)}
+  .tk-label::after{content:"";position:absolute;right:-28px;top:0;bottom:0;width:28px;
+    background:linear-gradient(90deg,var(--black),transparent);pointer-events:none}
+  .ticker-view{overflow:hidden;white-space:nowrap;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .ticker-inner{display:inline-block;padding:10px 0;animation:tick 55s linear infinite;
+    will-change:transform;font-family:var(--mono);font-size:12px;letter-spacing:.04em}
   .ticker:hover .ticker-inner{animation-play-state:paused}
-  @keyframes tick{to{transform:translateX(-100%)}}
-  .tk{margin:0 18px}
+  @keyframes tick{to{transform:translateX(-50%)}}
+  .tk{margin:0 20px}
+  .tk-sep{color:var(--muted);opacity:.4}
   .up{color:#4ade80}.down{color:#f87171}
 
   /* ===== masthead ===== */
@@ -172,7 +181,8 @@
 </div>
 
 <div class="ticker" title="实时行情（CoinGecko）">
-  <div class="ticker-inner" id="ticker">正在加载行情…</div>
+  <span class="tk-label"><span class="live-dot"></span>LIVE</span>
+  <div class="ticker-view"><div class="ticker-inner" id="ticker">正在加载行情…</div></div>
 </div>
 
 <div class="wrap">
@@ -181,7 +191,6 @@
     <h1>头<span class="acc">版</span></h1>
     <div class="dateline">
       <span id="dateline-date">2026年10月12日 星期一</span>
-      <span>第 001 期 · 个人策展简报</span>
       <span><span class="live-dot"></span>行情与极客脉搏实时拉取</span>
     </div>
     <nav class="secs">
@@ -406,8 +415,7 @@
 
 <div class="wrap">
   <footer>
-    头版 · 第 001 期 · 2026-10-12<br>
-    由 Muse 策展 · 摘要为编辑改写，点击标题阅读原文 · 行情与热榜由公开 API 实时拉取<br>
+    行情与热榜由公开 API 实时拉取<br>
     © 2026 头版
   </footer>
 </div>
@@ -455,12 +463,12 @@
   function sign(c){ return (c>=0?'+':'')+c.toFixed(1)+'%'; }
 
   function renderTicker(list){
-    var html = list.map(function(c){
+    // 16-item unit, duplicated once; translateX(-50%) lands pixel-perfect
+    var unit = list.concat(list).map(function(c){
       return '<span class="tk">'+c.symbol+' $'+fmt(c.price)+' '+
         '<span class="'+cls(c.chg)+'">'+sign(c.chg)+'</span></span>';
-    }).join('<span class="tk">●</span>');
-    // duplicate for seamless loop
-    document.getElementById('ticker').innerHTML = html+'<span class="tk">●</span>'+html+'<span class="tk">●</span>';
+    }).join('<span class="tk-sep">●</span>') + '<span class="tk-sep">●</span>';
+    document.getElementById('ticker').innerHTML = unit + unit;
   }
   function renderTable(list){
     document.getElementById('mkt-body').innerHTML = list.map(function(c){
