@@ -1,0 +1,57 @@
+name: Update US stock quotes
+
+# 每 20 分钟（美股交易时段）抓取 Nasdaq 行情，写入 us-quotes.json 并提交。
+# 页面通过同源 JSON 读取，无跨域问题。数据无变化时不提交。
+
+on:
+  schedule:
+    - cron: '*/20 13-21 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  quotes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch quotes from Nasdaq
+        run: |
+          UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+          SYMS="NVDA AAPL MSFT AVGO AMD TSM MU INTC META GOOGL AMZN ARM"
+          QUOTES="[]"
+          for s in $SYMS; do
+            J=$(curl -s --max-time 25 -H "User-Agent: $UA" -H "Accept: application/json" \
+              "https://api.nasdaq.com/api/quote/$s/info?assetclass=stocks")
+            P=$(echo "$J" | jq -r '.data.primaryData.lastSalePrice // empty' | tr -d '$ ,')
+            C=$(echo "$J" | jq -r '.data.primaryData.percentageChange // empty' | tr -d '% ')
+            if [ -n "$P" ] && [ -n "$C" ]; then
+              QUOTES=$(echo "$QUOTES" | jq --arg s "$s" --argjson p "$P" --argjson c "$C" \
+                '. + [{symbol:$s, price:$p, chg:$c}]')
+              echo "$s $P $C"
+            else
+              echo "$s FAILED" >&2
+            fi
+            sleep 1
+          done
+          N=$(echo "$QUOTES" | jq 'length')
+          if [ "$N" -lt 12 ]; then echo "only $N/12 quotes, aborting" >&2; exit 1; fi
+          jq -n --argjson q "$QUOTES" \
+            --arg utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --arg et "美东 $(TZ=America/New_York date +'%-m-%-d %H:%M')" \
+            '{updated_utc:$utc, updated_et:$et, quotes:$q}' > us-quotes.json
+          cat us-quotes.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name "quotes-bot"
+          git config user.email "quotes-bot@users.noreply.github.com"
+          git add us-quotes.json
+          if git diff --cached --quiet; then
+            echo "no changes, skipping commit"
+          else
+            git commit -m "chore: update US stock quotes"
+            git push
+          fi
