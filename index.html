@@ -36,10 +36,9 @@
   .ticker-view{overflow:hidden;white-space:nowrap;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
-  .ticker-inner{display:inline-block;padding:10px 0;animation:tick 55s linear infinite;
+  .ticker-inner{display:inline-block;padding:10px 0;white-space:nowrap;
     will-change:transform;font-family:var(--mono);font-size:12px;letter-spacing:.04em}
-  .ticker:hover .ticker-inner{animation-play-state:paused}
-  @keyframes tick{to{transform:translateX(-50%)}}
+  .tick-half{display:inline-block;white-space:nowrap}
   .tk{margin:0 20px}
   .tk-sep{color:var(--muted);opacity:.4}
   .up{color:#4ade80}.down{color:#f87171}
@@ -174,8 +173,8 @@
   <div class="w-bottom"><span>EST. 2026</span></div>
 </div>
 
-<div class="ticker" title="实时行情（CoinGecko）">
-  <span class="tk-label"><span class="live-dot"></span>LIVE</span>
+<div class="ticker" title="行情滚动（CoinGecko 公开数据）">
+  <span class="tk-label">LIVE</span>
   <div class="ticker-view"><div class="ticker-inner" id="ticker">正在加载行情…</div></div>
 </div>
 
@@ -427,7 +426,7 @@
       <thead><tr><th>资产</th><th>价格 (USD)</th><th>24h</th></tr></thead>
       <tbody id="mkt-body"><tr><td colspan="3">正在拉取实时行情…</td></tr></tbody>
     </table>
-    <div class="src">数据来源：CoinGecko 公开 API（GitHub Actions 每 20 分钟更新） · <span id="mkt-time"></span> · 仅供参考，不构成投资建议</div>
+    <div class="src">数据来源：CoinGecko 公开数据 · <span id="mkt-time"></span></div>
   </div>
 </div>
 
@@ -439,13 +438,13 @@
       <thead><tr><th>代码</th><th>公司</th><th>价格 (USD)</th><th>日涨跌</th></tr></thead>
       <tbody id="us-body"><tr><td colspan="4">正在拉取实时行情…</td></tr></tbody>
     </table>
-    <div class="src">数据来源：Nasdaq 公开接口（GitHub Actions 每 20 分钟更新） · <span id="us-time"></span> · 仅供参考，不构成投资建议</div>
+    <div class="src">数据来源：Nasdaq 公开数据 · <span id="us-time"></span></div>
   </div>
 </div>
 
 <div class="wrap">
   <footer>
-    行情由公开 API 实时拉取<br>
+    免责声明：本站行情数据与新闻内容均来自公开 API 及公开网络来源，仅供参考，可能存在延迟或误差，不构成任何投资建议。<br>
     © 2026 头版
   </footer>
 </div>
@@ -492,13 +491,34 @@
   function cls(c){ return c>=0 ? 'up' : 'down'; }
   function sign(c){ return (c>=0?'+':'')+c.toFixed(1)+'%'; }
 
+  // 行情栏：requestAnimationFrame 逐帧驱动（CSS keyframes 在 iOS 切后台后经常罢工）
+  var tick = {x:0, half:0, last:0, paused:false};
   function renderTicker(list){
-    // 16-item unit, duplicated once; translateX(-50%) lands pixel-perfect
-    var unit = list.concat(list).map(function(c){
+    var half = list.map(function(c){
       return '<span class="tk">'+c.symbol+' $'+fmt(c.price)+' '+
         '<span class="'+cls(c.chg)+'">'+sign(c.chg)+'</span></span>';
     }).join('<span class="tk-sep">●</span>') + '<span class="tk-sep">●</span>';
-    document.getElementById('ticker').innerHTML = unit + unit;
+    var el = document.getElementById('ticker');
+    el.innerHTML = '<span class="tick-half">'+half+'</span><span class="tick-half">'+half+'</span>';
+    tick.half = (el.children[0] && el.children[0].offsetWidth) || 0;
+    if (tick.half > 0) tick.x = (((tick.x % tick.half) + tick.half) % tick.half) || 0;
+    if (tick.x > 0) tick.x -= tick.half;
+  }
+  function tickFrame(t){
+    if (!tick.last) tick.last = t;
+    var dt = (t - tick.last)/1000; tick.last = t;
+    if (dt > 0.25) dt = 0.25; // 切后台回来时钳住时间差，避免跳动
+    var view = document.querySelector('.ticker-view');
+    var el = document.getElementById('ticker');
+    var canScroll = el && view && tick.half > view.clientWidth + 1;
+    if (canScroll && !tick.paused){
+      tick.x -= 60*dt; // 60 px/s 匀速
+      if (tick.x <= -tick.half) tick.x += tick.half; // 无缝回绕
+      el.style.transform = 'translateX('+tick.x+'px)';
+    } else if (!canScroll && tick.x !== 0){
+      tick.x = 0; if (el) el.style.transform = 'translateX(0px)';
+    }
+    requestAnimationFrame(tickFrame);
   }
   function renderTable(list){
     document.getElementById('mkt-body').innerHTML = list.map(function(c){
@@ -570,6 +590,18 @@
       });
   }
 
+  requestAnimationFrame(tickFrame);
+  var _tv = document.querySelector('.ticker-view');
+  if (_tv){
+    _tv.addEventListener('mouseenter', function(){ tick.paused = true; });
+    _tv.addEventListener('mouseleave', function(){ tick.paused = false; });
+  }
+  if (document.fonts && document.fonts.ready){
+    document.fonts.ready.then(function(){
+      var el = document.getElementById('ticker');
+      if (el && el.children[0]) tick.half = el.children[0].offsetWidth || tick.half;
+    });
+  }
   function refreshAll(){ refreshCrypto(); refreshUS(); }
   refreshAll();
   setInterval(refreshAll, 60000);
