@@ -103,12 +103,6 @@
   .mkt .src{margin-top:14px;font-size:11.5px;color:var(--muted);letter-spacing:.1em}
 
   /* ===== hn ===== */
-  .hn-list{list-style:none;counter-reset:hn}
-  .hn-list li{counter-increment:hn;display:flex;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);align-items:baseline}
-  .hn-list li::before{content:counter(hn,decimal-leading-zero);font-family:var(--mono);font-size:12px;color:var(--acc);font-weight:600}
-  .hn-list a{font-size:15.5px;font-weight:600}
-  .hn-list a:hover{color:var(--red)}
-  .hn-list .pts{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:nowrap}
 
   footer{border-top:1px solid var(--line);margin-top:36px;padding:22px 0 40px;
     font-size:12px;color:var(--muted);letter-spacing:.12em;text-align:center;line-height:2}
@@ -173,7 +167,7 @@
       <div class="w-title">头<span class="acc">版</span></div>
       <div class="w-rule"></div>
       <div class="w-secs">为你筛选值得读的新闻，每天一页读完</div>
-      <div class="w-stats">21 STORIES · 7 SECTIONS · 实时数据</div>
+      <div class="w-stats">24 STORIES · 8 SECTIONS · 实时数据</div>
       <button id="enter-btn">进入阅读 →</button>
     </div>
   </div>
@@ -191,11 +185,11 @@
     <h1>头<span class="acc">版</span></h1>
     <div class="dateline">
       <span id="dateline-date">2026年10月12日 星期一</span>
-      <span><span class="live-dot"></span>行情与极客脉搏实时拉取</span>
+      <span><span class="live-dot"></span>行情实时更新</span>
     </div>
     <nav class="secs">
       <a href="#world">国际</a><a href="#econ">经济</a><a href="#poli">政治</a>
-      <a href="#tech">科技</a><a href="#ai">AI产业</a><a href="#chips">芯片美股</a><a href="#crypto">Web3·Crypto</a>
+      <a href="#tech">科技</a><a href="#ai">AI产业</a><a href="#chips">芯片</a><a href="#stocks">美股</a><a href="#crypto">Web3</a>
     </nav>
   </header>
 
@@ -321,38 +315,13 @@
         <div class="meta">联合新闻网 · 10-12 · <a href="https://udn.com/news/story/7240/9809272" target="_blank" rel="noopener">原文 ↗</a></div>
       </div>
     </div>
-    <div class="sec-head" style="margin-top:26px"><span class="no">++</span><h2>极客脉搏</h2><span class="en">HACKER NEWS · LIVE</span></div>
-    <ol class="hn-list" id="hn-list"><li>正在拉取 Hacker News 热榜…</li></ol>
   </section>
 
-  <!-- Web3 / Crypto -->
-  <section class="blk" id="crypto">
-    <div class="sec-head"><span class="no">05</span><h2>Web3 · Crypto</h2><span class="en">CRYPTO</span></div>
-    <div class="grid">
-      <div class="card">
-        <span class="tag">比特币</span>
-        <h3 class="serif"><a href="https://www.coindesk.com/markets/2026/10/12/altcoins-rally-on-thin-trading-as-bitcoin-holds-near-usd84-000" target="_blank" rel="noopener">BTC 守住 $83k，巨鲸 72 小时吸筹 1.5 万枚对抗 ETF 流出</a></h3>
-        <p>美国现货 BTC ETF 上周净流出 $6.81 亿（6 月以来最多），但巨鲸与企业财库买盘托底。CryptoQuant 警告：成交量低迷，反弹根基仍显脆弱。</p>
-        <div class="meta">CoinDesk · 10-12 · <a href="https://www.coindesk.com/markets/2026/10/12/altcoins-rally-on-thin-trading-as-bitcoin-holds-near-usd84-000" target="_blank" rel="noopener">原文 ↗</a></div>
-      </div>
-      <div class="card">
-        <span class="tag">山寨</span>
-        <h3 class="serif"><a href="https://cryptocompass.com/articles/crypto-news-october-12-bunker-strk-grass-near-trump-trends-today" target="_blank" rel="noopener">小币种领涨：ZEC +10%、STRK +20%、BUNKER +40%</a></h3>
-        <p>CoinDesk 80 指数 24 小时涨约 3%，跑赢大盘两倍。但 CoinDesk 研究提醒：一年前的闪崩之后，山寨币订单簿深度仍在持续变薄。</p>
-        <div class="meta">CryptoCompass · 10-12 · <a href="https://cryptocompass.com/articles/crypto-news-october-12-bunker-strk-grass-near-trump-trends-today" target="_blank" rel="noopener">原文 ↗</a></div>
-      </div>
-      <div class="card">
-        <span class="tag">安全</span>
-        <h3 class="serif"><a href="https://m.dailyhunt.in/news/india/english/analytics%20insight-epaper-anycinst/crypto%20prices%20today%20bitcoin%20at%20usd%2083791%20ethereum%20at%20usd%202553%20zcash%20surges%20101-newsid-n730066462" target="_blank" rel="noopener">Ledger 硬件钱包疑遭供应链植入，$86M 被盗</a></h3>
-        <p>The Verge 报道：经东南亚经销商售出的部分钱包疑被加装硬件植入体，在初始化时截获助记词，数百个钱包受影响。Ledger 已要求经销商暂停销售。</p>
-        <div class="meta">The Verge 经 Dailyhunt · 10-12 · <a href="https://m.dailyhunt.in/news/india/english/analytics%20insight-epaper-anycinst/crypto%20prices%20today%20bitcoin%20at%20usd%2083791%20ethereum%20at%20usd%202553%20zcash%20surges%20101-newsid-n730066462" target="_blank" rel="noopener">原文 ↗</a></div>
-      </div>
-    </div>
-  </section>
+
 
   <!-- AI 产业 -->
   <section class="blk" id="ai">
-    <div class="sec-head"><span class="no">06</span><h2>AI 产业</h2><span class="en">AI INDUSTRY</span></div>
+    <div class="sec-head"><span class="no">05</span><h2>AI 产业</h2><span class="en">AI INDUSTRY</span></div>
     <div class="grid">
       <div class="card">
         <span class="tag">融资</span>
@@ -375,9 +344,9 @@
     </div>
   </section>
 
-  <!-- 芯片美股 -->
+  <!-- 芯片 -->
   <section class="blk" id="chips">
-    <div class="sec-head"><span class="no">07</span><h2>芯片美股</h2><span class="en">CHIP STOCKS</span></div>
+    <div class="sec-head"><span class="no">06</span><h2>芯片</h2><span class="en">CHIPS</span></div>
     <div class="grid">
       <div class="card">
         <span class="tag">财报</span>
@@ -386,19 +355,68 @@
         <div class="meta">路透社经 Business Times · 10-08 · <a href="https://www.businesstimes.com.sg/companies-markets/tsmcs-q3-revenue-surges-record-beating-market-forecast" target="_blank" rel="noopener">原文 ↗</a></div>
       </div>
       <div class="card">
+        <span class="tag">英伟达</span>
+        <h3 class="serif"><a href="https://www.ad-hoc-news.de/boerse/corporate-news/nvidia-committed-usd-1-billion-for-science-morgan-stanley-kept-usd-300/70300421" target="_blank" rel="noopener">英伟达 5 年投 10 亿美元挺美国科研，分析师喊出 $515 目标价</a></h3>
+        <p>英伟达宣布未来 5 年投入 10 亿美元，支持美国高校科研、量子计算项目和服务政府需求的云厂商。Raymond James 给出 $515 目标价，为华尔街最高；摩根士丹利月初已将其列为半导体首选股。但 10 月 8 日 NVDA 仍随板块跌约 3%。</p>
+        <div class="meta">ad-hoc-news / 彭博 · 10-07 · <a href="https://www.ad-hoc-news.de/boerse/corporate-news/nvidia-committed-usd-1-billion-for-science-morgan-stanley-kept-usd-300/70300421" target="_blank" rel="noopener">原文 ↗</a></div>
+      </div>
+      <div class="card">
+        <span class="tag">光刻</span>
+        <h3 class="serif"><a href="https://www.reuters.com/business/asml-zeiss-say-next-generation-chipmaking-technology-may-be-ready-10-years-2026-10-08/" target="_blank" rel="noopener">ASML 与蔡司披露下一代光刻 Hyper NA，约十年后就绪</a></h3>
+        <p>ASML 与蔡司工程师在同行评审论文中称，High-NA EUV 的继任技术 Hyper NA 约 10 年后可投入使用，可印制小至 5 纳米线条。英特尔已在生产中使用 High-NA，三星、SK 海力士计划 2028 年跟进，台积电 2030 年。这是 High-NA 之后首个公开的光刻路线图。</p>
+        <div class="meta">路透社 · 10-08 · <a href="https://www.reuters.com/business/asml-zeiss-say-next-generation-chipmaking-technology-may-be-ready-10-years-2026-10-08/" target="_blank" rel="noopener">原文 ↗</a></div>
+      </div>
+    </div>
+  </section>
+  <!-- 美股 -->
+  <section class="blk" id="stocks">
+    <div class="sec-head"><span class="no">07</span><h2>美股</h2><span class="en">US STOCKS</span></div>
+    <div class="grid">
+      <div class="card">
         <span class="tag">市场</span>
         <h3 class="serif"><a href="https://t.signalplus.com/crypto-news/detail/openai-revenue-report-ai-stock-selloff?lang=en-US" target="_blank" rel="noopener">OpenAI 收入"不及预期"引抛售，芯片股创近一月最差单周</a></h3>
         <p>FT 报道 OpenAI 年化收入约 500 亿美元，低于此前流传的 680–700 亿（OpenAI 未证实）。英伟达跌 3%、博通跌 4.4%、AMD/英特尔各跌 4–5%，费城半导体指数单日跌 3.4%，全周跌约 5%，为近一个月最差。</p>
         <div class="meta">FT 经 SignalPlus · 10-08 · <a href="https://t.signalplus.com/crypto-news/detail/openai-revenue-report-ai-stock-selloff?lang=en-US" target="_blank" rel="noopener">原文 ↗</a></div>
       </div>
       <div class="card">
-        <span class="tag">英伟达</span>
-        <h3 class="serif"><a href="https://www.ad-hoc-news.de/boerse/corporate-news/nvidia-committed-usd-1-billion-for-science-morgan-stanley-kept-usd-300/70300421" target="_blank" rel="noopener">英伟达 5 年投 10 亿美元挺美国科研，分析师喊出 $515 目标价</a></h3>
-        <p>英伟达宣布未来 5 年投入 10 亿美元，支持美国高校科研、量子计算项目和服务政府需求的云厂商。Raymond James 给出 $515 目标价，为华尔街最高；摩根士丹利月初已将其列为半导体首选股。但 10 月 8 日 NVDA 仍随板块跌约 3%。</p>
-        <div class="meta">ad-hoc-news / 彭博 · 10-07 · <a href="https://www.ad-hoc-news.de/boerse/corporate-news/nvidia-committed-usd-1-billion-for-science-morgan-stanley-kept-usd-300/70300421" target="_blank" rel="noopener">原文 ↗</a></div>
+        <span class="tag">大盘</span>
+        <h3 class="serif"><a href="https://www.investors.com/market-trend/stock-market-today/dow-jones-sp500-nasdaq-trump-energy-ceasefire/" target="_blank" rel="noopener">美股涨跌互现：道指领涨、纳指走低，油价创两周新高</a></h3>
+        <p>周一道指涨 0.5%（Salesforce 领涨），标普微跌、纳指跌 0.4%。Brent 原油涨近 2% 至约 107 美元、创两周新高，利雅得机场遇袭等地缘事件引发供应担忧。Meta 涨超 3%，10 年期美债收益率持稳 5.24%，市场等待 Q3 财报季开幕。</p>
+        <div class="meta">Investor's Business Daily · 10-12 · <a href="https://www.investors.com/market-trend/stock-market-today/dow-jones-sp500-nasdaq-trump-energy-ceasefire/" target="_blank" rel="noopener">原文 ↗</a></div>
+      </div>
+      <div class="card">
+        <span class="tag">前瞻</span>
+        <h3 class="serif"><a href="https://www.reuters.com/world/china/tsmc-expected-report-sixth-straight-quarter-record-profit-thanks-ai-boom-2026-10-12/" target="_blank" rel="noopener">台积电周四发财报：净利润预计增 65%，连续六季创纪录</a></h3>
+        <p>分析师预计台积电 Q3 净利润同比增约 65% 至 7,463 亿新台币，将是连续第六个季度创纪录。Q3 营收已超预期创新高；看点在周四电话会——摩根士丹利预计全年营收增速指引或从"40% 以上"上调。作为英伟达核心代工厂，这份财报是 AI 硬件需求的直接验证。</p>
+        <div class="meta">路透社 · 10-12 · <a href="https://www.reuters.com/world/china/tsmc-expected-report-sixth-straight-quarter-record-profit-thanks-ai-boom-2026-10-12/" target="_blank" rel="noopener">原文 ↗</a></div>
       </div>
     </div>
   </section>
+  <!-- Web3 -->
+  <section class="blk" id="crypto">
+    <div class="sec-head"><span class="no">08</span><h2>Web3</h2><span class="en">WEB3</span></div>
+    <div class="grid">
+      <div class="card">
+        <span class="tag">比特币</span>
+        <h3 class="serif"><a href="https://www.coindesk.com/markets/2026/10/12/altcoins-rally-on-thin-trading-as-bitcoin-holds-near-usd84-000" target="_blank" rel="noopener">BTC 守住 $83k，巨鲸 72 小时吸筹 1.5 万枚对抗 ETF 流出</a></h3>
+        <p>美国现货 BTC ETF 上周净流出 $6.81 亿（6 月以来最多），但巨鲸与企业财库买盘托底。CryptoQuant 警告：成交量低迷，反弹根基仍显脆弱。</p>
+        <div class="meta">CoinDesk · 10-12 · <a href="https://www.coindesk.com/markets/2026/10/12/altcoins-rally-on-thin-trading-as-bitcoin-holds-near-usd84-000" target="_blank" rel="noopener">原文 ↗</a></div>
+      </div>
+      <div class="card">
+        <span class="tag">山寨</span>
+        <h3 class="serif"><a href="https://cryptocompass.com/articles/crypto-news-october-12-bunker-strk-grass-near-trump-trends-today" target="_blank" rel="noopener">小币种领涨：ZEC +10%、STRK +20%、BUNKER +40%</a></h3>
+        <p>CoinDesk 80 指数 24 小时涨约 3%，跑赢大盘两倍。但 CoinDesk 研究提醒：一年前的闪崩之后，山寨币订单簿深度仍在持续变薄。</p>
+        <div class="meta">CryptoCompass · 10-12 · <a href="https://cryptocompass.com/articles/crypto-news-october-12-bunker-strk-grass-near-trump-trends-today" target="_blank" rel="noopener">原文 ↗</a></div>
+      </div>
+      <div class="card">
+        <span class="tag">安全</span>
+        <h3 class="serif"><a href="https://m.dailyhunt.in/news/india/english/analytics%20insight-epaper-anycinst/crypto%20prices%20today%20bitcoin%20at%20usd%2083791%20ethereum%20at%20usd%202553%20zcash%20surges%20101-newsid-n730066462" target="_blank" rel="noopener">Ledger 硬件钱包疑遭供应链植入，$86M 被盗</a></h3>
+        <p>The Verge 报道：经东南亚经销商售出的部分钱包疑被加装硬件植入体，在初始化时截获助记词，数百个钱包受影响。Ledger 已要求经销商暂停销售。</p>
+        <div class="meta">The Verge 经 Dailyhunt · 10-12 · <a href="https://m.dailyhunt.in/news/india/english/analytics%20insight-epaper-anycinst/crypto%20prices%20today%20bitcoin%20at%20usd%2083791%20ethereum%20at%20usd%202553%20zcash%20surges%20101-newsid-n730066462" target="_blank" rel="noopener">原文 ↗</a></div>
+      </div>
+    </div>
+  </section>
+
 </div>
 
 <!-- 行情 -->
@@ -409,13 +427,25 @@
       <thead><tr><th>资产</th><th>价格 (USD)</th><th>24h</th></tr></thead>
       <tbody id="mkt-body"><tr><td colspan="3">正在拉取实时行情…</td></tr></tbody>
     </table>
-    <div class="src">实时数据：CoinGecko 公开 API · 快照基准 2026-10-12 · 仅供参考，不构成投资建议</div>
+    <div class="src">实时数据：CoinGecko 公开 API · <span id="mkt-time"></span> · 仅供参考，不构成投资建议</div>
+  </div>
+</div>
+
+<!-- 美股行情 -->
+<div class="mkt" id="usmarket">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">US</span><h2>美股快照</h2><span class="en">US STOCKS · LIVE</span></div>
+    <table>
+      <thead><tr><th>代码</th><th>公司</th><th>价格 (USD)</th><th>日涨跌</th></tr></thead>
+      <tbody id="us-body"><tr><td colspan="4">正在拉取实时行情…</td></tr></tbody>
+    </table>
+    <div class="src">实时数据：Yahoo Finance 公开接口 · <span id="us-time"></span> · 仅供参考，不构成投资建议</div>
   </div>
 </div>
 
 <div class="wrap">
   <footer>
-    行情与热榜由公开 API 实时拉取<br>
+    行情由公开 API 实时拉取<br>
     © 2026 头版
   </footer>
 </div>
@@ -480,32 +510,60 @@
     return {symbol:(c.symbol||'').toUpperCase(), price:c.current_price, chg:c.price_change_percentage_24h||0};
   });};
 
-  fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,ripple,binancecoin,zcash,dogecoin,tron&price_change_percentage=24h')
-    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-    .then(function(d){ var l=norm(d); renderTicker(l); renderTable(l); })
-    .catch(function(){ renderTicker(FALLBACK); renderTable(FALLBACK); });
+  function stamp(id){
+    try{
+      document.getElementById(id).textContent =
+        '更新于 ' + new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    }catch(e){}
+  }
+  function refreshCrypto(){
+    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,ripple,binancecoin,zcash,dogecoin,tron&price_change_percentage=24h')
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(d){ var l=norm(d); renderTicker(l); renderTable(l); stamp('mkt-time'); })
+      .catch(function(){ renderTicker(FALLBACK); renderTable(FALLBACK); });
+  }
 
-  // HN top stories
-  fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
-    .then(function(r){ return r.json(); })
-    .then(function(ids){
-      return Promise.all(ids.slice(0,7).map(function(id){
-        return fetch('https://hacker-news.firebaseio.com/v0/item/'+id+'.json').then(function(r){return r.json();});
-      }));
-    })
-    .then(function(items){
-      document.getElementById('hn-list').innerHTML = items.filter(Boolean).map(function(it){
-        var url = it.url || ('https://news.ycombinator.com/item?id='+it.id);
-        return '<li><a href="'+url+'" target="_blank" rel="noopener">'+
-          it.title.replace(/</g,'&lt;')+'</a>'+
-          '<span class="pts">'+(it.score||0)+' pts</span></li>';
-      }).join('');
-    })
-    .catch(function(){
-      document.getElementById('hn-list').innerHTML =
-        '<li><a href="https://finance.sina.com.cn/tech/shenji/2026-10-12/doc-iniuxmtr7267773.shtml" target="_blank" rel="noopener">模思智能完成超 10 亿元 Pre-A 轮融资</a><span class="pts">策展</span></li>'+
-        '<li><a href="https://udn.com/news/story/7240/9809272" target="_blank" rel="noopener">台智云福尔摩沙大模型登 AIEC 榜单前列</a><span class="pts">策展</span></li>';
-    });
+  // ---- 美股快照（科技 + 芯片） ----
+  var US_NAMES = {NVDA:'英伟达',AAPL:'苹果',MSFT:'微软',AVGO:'博通',AMD:'AMD',TSM:'台积电',
+    MU:'美光',INTC:'英特尔',META:'Meta',GOOGL:'谷歌',AMZN:'亚马逊',ARM:'Arm'};
+  var US_SYMS = Object.keys(US_NAMES);
+  var US_FALLBACK = [
+    {symbol:'NVDA', price:226.94, chg:-1.02},
+    {symbol:'AAPL', price:339.98, chg:0.99},
+    {symbol:'MSFT', price:541.63, chg:1.23},
+    {symbol:'AVGO', price:357.41, chg:-1.14},
+    {symbol:'AMD', price:593.29, chg:-2.44},
+    {symbol:'TSM', price:448.63, chg:-1.03},
+    {symbol:'MU', price:999.23, chg:-2.89},
+    {symbol:'INTC', price:101.43, chg:-3.12},
+    {symbol:'META', price:744.79, chg:3.63},
+    {symbol:'GOOGL', price:353.86, chg:0.63},
+    {symbol:'AMZN', price:261.14, chg:-0.49},
+    {symbol:'ARM', price:256.38, chg:-3.72}
+  ];
+  function renderUS(list){
+    document.getElementById('us-body').innerHTML = list.map(function(c){
+      return '<tr><td class="sym">'+c.symbol+'</td><td>'+(US_NAMES[c.symbol]||c.symbol)+'</td><td>$'+fmt(c.price)+
+        '</td><td class="'+cls(c.chg)+'">'+sign(c.chg)+'</td></tr>';
+    }).join('');
+  }
+  function refreshUS(){
+    fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols='+US_SYMS.join(',')+'&fields=symbol,regularMarketPrice,regularMarketChangePercent')
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(d){
+        var res = ((d.quoteResponse||{}).result)||[];
+        if(!res.length) throw 0;
+        renderUS(res.map(function(q){
+          return {symbol:q.symbol, price:q.regularMarketPrice, chg:q.regularMarketChangePercent||0};
+        }));
+        stamp('us-time');
+      })
+      .catch(function(){ renderUS(US_FALLBACK); try{document.getElementById('us-time').textContent='美东 10-12 盘中快照（备用）';}catch(e){} });
+  }
+
+  refreshCrypto();
+  refreshUS();
+  setInterval(function(){ refreshCrypto(); refreshUS(); }, 60000);
 })();
 </script>
 </body>
