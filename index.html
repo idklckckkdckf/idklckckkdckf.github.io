@@ -159,10 +159,15 @@
   .w-stats-zh{font-size:13px;letter-spacing:.34em;text-indent:.34em;color:var(--ink)}
   .w-stats-en{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-indent:.3em;
     color:var(--muted)}
+  .w-stats-zh+.w-stats-en{margin-top:8px}
   #enter-btn{background:transparent;color:var(--ink);border:1px solid var(--ink);
     cursor:pointer;font-family:var(--mono);font-size:13px;letter-spacing:.42em;font-weight:600;
     padding:17px 36px 17px 52px;transition:all .25s}
   #enter-btn:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .w-sched{display:flex;flex-direction:column;align-items:center;gap:6px;
+    padding:0 28px 14px;font-family:var(--mono);font-size:10px;letter-spacing:.22em;
+    color:var(--sub)}
+  .w-sched .en{color:var(--muted)}
   .w-bottom{display:flex;justify-content:center;align-items:center;
     padding:16px 28px;border-top:1px solid var(--line);
     font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--muted)}
@@ -199,12 +204,15 @@
       <div class="w-rule"></div>
       <div class="w-secs">为你筛选值得读的新闻<br>每天一页读完</div>
       <div class="w-stats">
-        <div class="w-stats-zh">8 个版面 · 24 篇报道 · 实时数据 · 每日更新</div>
-        <div class="w-stats-en">8 SECTIONS · 24 STORIES · LIVE DATA · DAILY UPDATE</div>
+        <div class="w-stats-zh">8 个版面 · 24 篇报道</div>
+        <div class="w-stats-zh">实时数据 · 每日更新</div>
+        <div class="w-stats-en">8 SECTIONS · 24 STORIES</div>
+        <div class="w-stats-en">LIVE DATA · DAILY UPDATE</div>
       </div>
       <button id="enter-btn">进入阅读 →</button>
     </div>
   </div>
+  <div class="w-sched"><span>每日 8:00 更新 · 本期 <span id="w-ed">10-13</span> 已更新</span><span class="en">DAILY 08:00 · EDITION <span id="w-ed-en">10-13</span> READY</span></div>
   <div class="w-bottom"><span>EST. 2026</span></div>
 </div>
 
