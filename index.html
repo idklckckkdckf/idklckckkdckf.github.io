@@ -93,6 +93,11 @@
   /* ===== market ===== */
   .mkt{background:var(--black);color:var(--ink);margin:34px 0 0;padding:30px 0 34px;border-top:1px solid var(--line)}
   .mkt .sec-head{border-bottom-color:var(--line)}
+  .mkt.fold .sec-head{cursor:pointer;user-select:none;-webkit-user-select:none}
+  .mkt.fold .sec-head::after{content:"+";margin-left:auto;font-family:var(--mono);
+    color:var(--acc);font-size:16px;font-weight:600}
+  .mkt.fold:not(.closed) .sec-head::after{content:"\2212"}
+  .mkt.fold.closed .wrap>:not(.sec-head){display:none}
   .mkt .sec-head h2{color:var(--ink)}
   .mkt table{width:100%;border-collapse:collapse;font-size:14px}
   .mkt th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--muted);font-weight:600;
@@ -419,9 +424,9 @@
 </div>
 
 <!-- 行情 -->
-<div class="mkt" id="market">
+<div class="mkt fold closed" id="market">
   <div class="wrap">
-    <div class="sec-head"><span class="no">MKT</span><h2>市场快照</h2><span class="en">MARKET SNAPSHOT · LIVE</span></div>
+    <div class="sec-head"><span class="no">MKT</span><h2>加密市场快照</h2><span class="en">CRYPTO MARKET · LIVE</span></div>
     <table>
       <thead><tr><th>资产</th><th>价格 (USD)</th><th>24h</th></tr></thead>
       <tbody id="mkt-body"><tr><td colspan="3">正在拉取实时行情…</td></tr></tbody>
@@ -431,9 +436,9 @@
 </div>
 
 <!-- 美股行情 -->
-<div class="mkt" id="usmarket">
+<div class="mkt fold closed" id="usmarket">
   <div class="wrap">
-    <div class="sec-head"><span class="no">US</span><h2>美股快照</h2><span class="en">US STOCKS · LIVE</span></div>
+    <div class="sec-head"><span class="no">US</span><h2>美股市场快照</h2><span class="en">US STOCK MARKET · LIVE</span></div>
     <table>
       <thead><tr><th>代码</th><th>公司</th><th>价格 (USD)</th><th>日涨跌</th></tr></thead>
       <tbody id="us-body"><tr><td colspan="4">正在拉取实时行情…</td></tr></tbody>
@@ -610,6 +615,12 @@
       if (el && el.children[0]) tick.half = el.children[0].offsetWidth || tick.half;
     });
   }
+  Array.prototype.forEach.call(document.querySelectorAll('.mkt.fold .sec-head'), function(hd){
+    hd.addEventListener('click', function(){
+      var m = hd.parentNode.parentNode;
+      if (m && m.classList) m.classList.toggle('closed');
+    });
+  });
   function refreshAll(){ refreshCrypto(); refreshUS(); }
   refreshAll();
   setInterval(refreshAll, 60000);
