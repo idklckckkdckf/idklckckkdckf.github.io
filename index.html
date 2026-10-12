@@ -439,7 +439,7 @@
       <thead><tr><th>代码</th><th>公司</th><th>价格 (USD)</th><th>日涨跌</th></tr></thead>
       <tbody id="us-body"><tr><td colspan="4">正在拉取实时行情…</td></tr></tbody>
     </table>
-    <div class="src">实时数据：Yahoo Finance 公开接口 · <span id="us-time"></span> · 仅供参考，不构成投资建议</div>
+    <div class="src">数据来源：Nasdaq 公开接口（GitHub Actions 每 20 分钟更新） · <span id="us-time"></span> · 仅供参考，不构成投资建议</div>
   </div>
 </div>
 
@@ -519,13 +519,18 @@
   function refreshCrypto(){
     fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,ripple,binancecoin,zcash,dogecoin,tron&price_change_percentage=24h')
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-      .then(function(d){ var l=norm(d); renderTicker(l); renderTable(l); stamp('mkt-time'); })
-      .catch(function(){ renderTicker(FALLBACK); renderTable(FALLBACK); });
+      .then(function(d){
+        var l=norm(d); renderTicker(l); renderTable(l); stamp('mkt-time');
+        document.getElementById('mkt-body').dataset.live='1';
+      })
+      .catch(function(){
+        if(document.getElementById('mkt-body').dataset.live!=='1'){ renderTicker(FALLBACK); renderTable(FALLBACK); }
+      });
   }
 
   // ---- 美股快照（科技 + 芯片） ----
-  var US_NAMES = {NVDA:'英伟达',AAPL:'苹果',MSFT:'微软',AVGO:'博通',AMD:'AMD',TSM:'台积电',
-    MU:'美光',INTC:'英特尔',META:'Meta',GOOGL:'谷歌',AMZN:'亚马逊',ARM:'Arm'};
+  var US_NAMES = {NVDA:'英伟达',AAPL:'苹果',MSFT:'微软',AVGO:'博通',AMD:'超微',TSM:'台积电',
+    MU:'美光',INTC:'英特尔',META:'Meta',GOOGL:'谷歌',AMZN:'亚马逊',ARM:'安谋'};
   var US_SYMS = Object.keys(US_NAMES);
   var US_FALLBACK = [
     {symbol:'NVDA', price:226.94, chg:-1.02},
@@ -548,22 +553,29 @@
     }).join('');
   }
   function refreshUS(){
-    fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols='+US_SYMS.join(',')+'&fields=symbol,regularMarketPrice,regularMarketChangePercent')
+    fetch('us-quotes.json', {cache:'no-store'})
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
       .then(function(d){
-        var res = ((d.quoteResponse||{}).result)||[];
-        if(!res.length) throw 0;
-        renderUS(res.map(function(q){
-          return {symbol:q.symbol, price:q.regularMarketPrice, chg:q.regularMarketChangePercent||0};
-        }));
-        stamp('us-time');
+        var q = d.quotes||[];
+        if(!q.length) throw 0;
+        renderUS(q);
+        try{ document.getElementById('us-time').textContent = '数据更新于 ' + d.updated_et; }catch(e){}
+        document.getElementById('us-body').dataset.live='1';
       })
-      .catch(function(){ renderUS(US_FALLBACK); try{document.getElementById('us-time').textContent='美东 10-12 盘中快照（备用）';}catch(e){} });
+      .catch(function(){
+        var tb = document.getElementById('us-body');
+        if(tb.dataset.live!=='1'){
+          renderUS(US_FALLBACK);
+          try{ document.getElementById('us-time').textContent='美东 10-12 盘中快照（备用）'; }catch(e){}
+        }
+      });
   }
 
-  refreshCrypto();
-  refreshUS();
-  setInterval(function(){ refreshCrypto(); refreshUS(); }, 60000);
+  function refreshAll(){ refreshCrypto(); refreshUS(); }
+  refreshAll();
+  setInterval(refreshAll, 60000);
+  // 从后台切回前台时立即刷新（浏览器会节流后台标签页的定时器）
+  document.addEventListener('visibilitychange', function(){ if(!document.hidden){ refreshAll(); } });
 })();
 </script>
 </body>
